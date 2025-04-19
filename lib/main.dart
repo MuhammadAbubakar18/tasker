@@ -2,9 +2,20 @@ import 'dart:async';
 
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:dots_indicator/dots_indicator.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:tasker_by_team_dsa/Login_screen.dart';
+import 'package:tasker_by_team_dsa/OTP_screen.dart';
+import 'package:tasker_by_team_dsa/SignIn_Screen.dart';
 
-void main() {
+Future<void> main() async { WidgetsFlutterBinding.ensureInitialized();
+    await Firebase.initializeApp();
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+      DeviceOrientation.portraitDown,
+    ]);
+
   runApp(const MyApp());
 }
 
@@ -17,6 +28,7 @@ class MyApp extends StatelessWidget {
         initialRoute: '/splash',
         routes: {
         '/splash':(context)=>SplashScreen(),
+        '/otp':(context)=>PinCodeVerificationScreen(),
         '/main': (context) => const MainScreen(),
         },
         title: 'Persistent Bottom Nav Bar',
@@ -208,10 +220,10 @@ class StartScreen extends StatelessWidget {
                 minimumSize: const Size(double.infinity, 50),
               ),
               onPressed: () {
-                // Navigator.push(
-                //   context,
-                //   MaterialPageRoute(builder: (context) => LoginScreen()), // Navigate to LoginScreen
-                // );
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => LoginScreen()), // Navigate to LoginScreen
+                );
               },
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -231,20 +243,28 @@ class StartScreen extends StatelessWidget {
             ),
           ),
           SizedBox(height: 15,),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: const [
-              Icon(Icons.person_add, color: Colors.white),
-              SizedBox(width: 10),
-              Text(
-                "New User? SignUp",
-                style: TextStyle(
-                  fontSize: 18,
-                  color: Colors.black,
-                  fontWeight: FontWeight.bold,
+          GestureDetector(
+            onTap: (){
+                Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => SignupScreen()), // Navigate to LoginScreen
+              );
+            },
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: const [
+                Icon(Icons.person_add, color: Colors.black),
+                SizedBox(width: 10),
+                Text(
+                  "New User? SignUp",
+                  style: TextStyle(
+                    fontSize: 18,
+                    color: Colors.black,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
 
         ],
