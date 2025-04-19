@@ -77,24 +77,25 @@ class _SignupScreenState extends State<SignupScreen> {
         fit: StackFit.expand,
         children: [
 
-          Container(
-            color: Colors.black.withOpacity(0.3),
-          ),
+          // Container(
+          //   color: Colors.black.withOpacity(0.3),
+          // ),
           SafeArea(
             child: Form(
               key: _formKey,
               child: Column(
                 children: [
                   const Spacer(flex: 1),
-                  Text(
-                    "Sign Up",
-                    style: GoogleFonts.alumniSans(
-                      fontSize: 58,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white,
-                    ),
-                  ),
-                  const SizedBox(height: 30),
+                  Image.asset('assets/s4.PNG'),
+                  // Text(
+                  //   "Sign Up",
+                  //   style: GoogleFonts.alumniSans(
+                  //     fontSize: 58,
+                  //     fontWeight: FontWeight.bold,
+                  //     color: Colors.white,
+                  //   ),
+                  // ),
+                  const SizedBox(height: 5),
                   const Spacer(flex: 1),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -115,7 +116,7 @@ class _SignupScreenState extends State<SignupScreen> {
                     width: 150,
                     child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.black,
+                        backgroundColor: Colors.deepPurpleAccent,
                         padding: const EdgeInsets.symmetric(vertical: 14),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(30),
@@ -153,36 +154,49 @@ class _SignupScreenState extends State<SignupScreen> {
 
   Widget _buildTextField(TextEditingController controller, String hintText, IconData icon,
       {bool isPassword = false, bool isEmail = false}) {
-    return TextFormField(
-      controller: controller,
-      obscureText: isPassword,
-      keyboardType: isEmail ? TextInputType.emailAddress : TextInputType.text,
-      decoration: InputDecoration(
-        filled: true,
-        fillColor: Colors.white,
-        hintText: hintText,
-        prefixIcon: Icon(icon, color: Colors.black),
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(30),
-          borderSide: BorderSide.none,
-        ),
-        contentPadding: const EdgeInsets.symmetric(vertical: 14),
+    return Container(
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(30),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.grey.withOpacity(0.5),
+            spreadRadius: 2,
+            blurRadius: 5,
+            offset: Offset(0, 3), // changes position of shadow
+          ),
+        ],
       ),
-      validator: (value) {
-        if (value == null || value.trim().isEmpty) {
-          return "$hintText is required";
-        }
-        if (isEmail && !RegExp(r'^[^@]+@[^@]+\.[^@]+').hasMatch(value)) {
-          return "Enter a valid email";
-        }
-        if (isPassword && value.length < 6) {
-          return "Password must be at least 6 characters";
-        }
-        return null;
-      },
+      child: TextFormField(
+        controller: controller,
+        obscureText: isPassword,
+        keyboardType: isEmail ? TextInputType.emailAddress : TextInputType.text,
+        decoration: InputDecoration(
+          filled: true,
+          fillColor: Colors.white,
+          hintText: hintText,
+          prefixIcon: Icon(icon, color: Colors.black),
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(30),
+            borderSide: BorderSide.none,
+          ),
+          contentPadding: const EdgeInsets.symmetric(vertical: 14),
+        ),
+        validator: (value) {
+          if (value == null || value.trim().isEmpty) {
+            return "$hintText is required";
+          }
+          if (isEmail && !RegExp(r'^[^@]+@[^@]+\.[^@]+').hasMatch(value)) {
+            return "Enter a valid email";
+          }
+          if (isPassword && value.length < 6) {
+            return "Password must be at least 6 characters";
+          }
+          return null;
+        },
+      ),
     );
   }
-
   @override
   void dispose() {
 

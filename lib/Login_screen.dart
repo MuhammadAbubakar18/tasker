@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:tasker_by_team_dsa/Dashboard/ChoosePlan.dart';
 import 'package:tasker_by_team_dsa/main.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -34,7 +35,7 @@ class _LoginScreenState extends State<LoginScreen> {
       );
       Navigator.push(
         context,
-        MaterialPageRoute(builder: (context) => MainScreen()), // Navigate to LoginScreen
+        MaterialPageRoute(builder: (context) => Chooseplan()), // Navigate to LoginScreen
       );
     } on FirebaseAuthException catch (e) {
       print("FirebaseAuthException: ${e.code} - ${e.message}"); // Print error to console
@@ -57,9 +58,9 @@ class _LoginScreenState extends State<LoginScreen> {
         fit: StackFit.expand,
         children: [
 
-          Container(
-            color: Colors.black.withOpacity(0.3),
-          ),
+          // Container(
+          //   color: Colors.black.withOpacity(0.3),
+          // ),
           SafeArea(
             child: Column(
               children: [
@@ -69,7 +70,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   style: GoogleFonts.alumniSans(
                     fontSize: 58,
                     fontWeight: FontWeight.bold,
-                    color: Colors.white,
+                    color: Colors.deepPurpleAccent,
                   ),
                 ),
                 const SizedBox(height: 30),
@@ -118,7 +119,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   width: 150,
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.black,
+                      backgroundColor: Colors.deepPurpleAccent,
                       padding: const EdgeInsets.symmetric(vertical: 14),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(30),

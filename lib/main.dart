@@ -5,8 +5,10 @@ import 'package:dots_indicator/dots_indicator.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:tasker_by_team_dsa/Dashboard/ChoosePlan.dart';
 import 'package:tasker_by_team_dsa/Login_screen.dart';
 import 'package:tasker_by_team_dsa/OTP_screen.dart';
+import 'package:tasker_by_team_dsa/OnboardingScreen.dart';
 import 'package:tasker_by_team_dsa/SignIn_Screen.dart';
 
 Future<void> main() async { WidgetsFlutterBinding.ensureInitialized();
@@ -77,7 +79,7 @@ class _SplashScreenState extends State<SplashScreen>
 
     Timer(const Duration(seconds: 8), () {
       Navigator.of(context).pushReplacement(
-        MaterialPageRoute(builder: (context) => const InitialScreen()),
+        MaterialPageRoute(builder: (context) => const OnboardingScreen()),
       );
     });
   }
@@ -93,7 +95,8 @@ class _SplashScreenState extends State<SplashScreen>
     return Scaffold(
       backgroundColor: Colors.white,
       body: Center(
-        child: FadeTransition(
+        child:
+        FadeTransition(
           opacity: _animation,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -247,7 +250,7 @@ class StartScreen extends StatelessWidget {
             onTap: (){
                 Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => SignupScreen()), // Navigate to LoginScreen
+                MaterialPageRoute(builder: (context) => Chooseplan()), // Navigate to LoginScreen
               );
             },
             child: Row(
