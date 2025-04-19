@@ -1,6 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:tasker_by_team_dsa/Dashboard/project_detail_screen.dart';
+
+import 'create_project_screen.dart';
 
 class DashboardScreen extends StatefulWidget {
   const DashboardScreen({Key? key}) : super(key: key);
@@ -13,7 +17,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
   final purple = const Color(0xFF6C4DFE);
   late Future<List<Map<String, dynamic>>> projects;
   late Future<List<Map<String, dynamic>>> tasks;
-
+  int selectedTabIndex = 0;
   @override
   void initState() {
     super.initState();
@@ -46,25 +50,30 @@ class _DashboardScreenState extends State<DashboardScreen> {
               const SizedBox(height: 20),
               buildTabs(),
               const SizedBox(height: 20),
-              buildProjectSection(),
-              const SizedBox(height: 20),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Row(
+              if (selectedTabIndex == 0) ...[
+                buildProjectSection(),
+                const SizedBox(height: 20),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Row(
 
-                  children: [
-                    Icon(Icons.app_registration_rounded,color: Colors.amber,),
-                    Text(
-                      "Your recent tasks",
-                      style: GoogleFonts.poppins(fontSize: 18, fontWeight: FontWeight.bold),
-                    ),
-                    SizedBox(width: 90,),
-                    Icon(Icons.arrow_circle_down,color: Colors.grey,),
+                    children: [
+                      Icon(Icons.app_registration_rounded,color: Colors.amber,),
+                      Text(
+                        "Your recent tasks",
+                        style: GoogleFonts.poppins(fontSize: 18, fontWeight: FontWeight.bold),
+                      ),
+                      SizedBox(width: 90,),
+                      Icon(Icons.arrow_circle_down,color: Colors.grey,),
 
-                  ],
+                    ],
+                  ),
                 ),
-              ),
-              buildTaskSection(),
+                buildTaskSection(),
+              ] else ...[
+                buildAnalyticsSection(), // 👇 new function
+              ],
+
             ],
           ),
         ),
@@ -86,48 +95,65 @@ class _DashboardScreenState extends State<DashboardScreen> {
         final int taskCount = int.tryParse(project['taskCount'] ?? '0') ?? 0;
         final int totalTasks = int.tryParse(project['totalTasks'] ?? '0') ?? 0;
 
-        return Container(
-          padding: const EdgeInsets.all(16),
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(16),
-          ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(project['title'] ?? "No Title", style: GoogleFonts.poppins(fontWeight: FontWeight.bold)),
-              const SizedBox(height: 10),
-              Row(
-                children: [
-                  const Icon(Icons.calendar_today, size: 14, color: Colors.grey),
-                  const SizedBox(width: 4),
-                  Text(project['startDate'] ?? "-", style: GoogleFonts.poppins(fontSize: 12, color: Colors.grey)),
-                  const SizedBox(width: 10),
-                  const Text(" - - - "),
-                  const SizedBox(width: 10),
-                  const Icon(Icons.access_time, size: 14, color: Colors.grey),
-                  const SizedBox(width: 4),
-                  Text(project['endDate'] ?? "-", style: GoogleFonts.poppins(fontSize: 12, color: Colors.deepOrange)),
-                ],
+        return GestureDetector(
+          onTap: (){
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (_) => ProjectDetailScreen(project: {
+                  'title': 'UI Redesign',
+                  'descr  iption': 'Redesign the mobile app interface with modern UI principles.',
+                  'startDate': '2025-03-01',
+                  'endDate': '2025-04-15',
+                  'status': 'In Progress',
+                  'progress': '0.65',
+                }),
               ),
-              const SizedBox(height: 10),
-              Row(
-                children: [
-                  Expanded(
-                    child: LinearProgressIndicator(
-                      value: progress,
-                      backgroundColor: Colors.grey[300],
-                      color: purple,
+            );
+          },
+          child: Container(
+            padding: const EdgeInsets.all(16),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(16),
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(project['title'] ?? "No Title", style: GoogleFonts.poppins(fontWeight: FontWeight.bold)),
+                const SizedBox(height: 10),
+                Row(
+                  children: [
+                    const Icon(Icons.calendar_today, size: 14, color: Colors.grey),
+                    const SizedBox(width: 4),
+                    Text(project['startDate'] ?? "-", style: GoogleFonts.poppins(fontSize: 12, color: Colors.grey)),
+                    const SizedBox(width: 10),
+                    const Text(" - - - "),
+                    const SizedBox(width: 10),
+                    const Icon(Icons.access_time, size: 14, color: Colors.grey),
+                    const SizedBox(width: 4),
+                    Text(project['endDate'] ?? "-", style: GoogleFonts.poppins(fontSize: 12, color: Colors.deepOrange)),
+                  ],
+                ),
+                const SizedBox(height: 10),
+                Row(
+                  children: [
+                    Expanded(
+                      child: LinearProgressIndicator(
+                        value: progress,
+                        backgroundColor: Colors.grey[300],
+                        color: purple,
+                      ),
                     ),
-                  ),
-                  const SizedBox(width: 10),
-                  Text(
-                    "$taskCount/$totalTasks tasks",
-                    style: GoogleFonts.poppins(fontSize: 12, color: Colors.grey),
-                  ),
-                ],
-              ),
-            ],
+                    const SizedBox(width: 10),
+                    Text(
+                      "$taskCount/$totalTasks tasks",
+                      style: GoogleFonts.poppins(fontSize: 12, color: Colors.grey),
+                    ),
+                  ],
+                ),
+              ],
+            ),
           ),
         );
       },
@@ -161,9 +187,71 @@ class _DashboardScreenState extends State<DashboardScreen> {
           "Dashboard",
           style: GoogleFonts.poppins(fontSize: 24, fontWeight: FontWeight.bold),
         ),
-        CircleAvatar(
-          backgroundColor: purple,
-          child: const Icon(Icons.add, color: Colors.white),
+        PopupMenuButton<String>(
+          onSelected: (value) {
+            // Handle your actions here
+            if (value == 'new_project') {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (_) => CreateProjectScreen())
+              );
+
+            } else if (value == 'new_task') {
+              // Navigate to create task
+            } else if (value == 'import_data') {
+              // Open import dialog
+            } else if (value == 'settings') {
+              // Navigate to settings
+            }
+          },
+          itemBuilder: (context) => [
+            const PopupMenuItem(
+              value: 'new_project',
+              child: Row(
+                children: [
+                  Icon(Icons.work_outline, color: Colors.black54),
+                  SizedBox(width: 10),
+                  Text("New Project"),
+                ],
+              ),
+            ),
+            const PopupMenuItem(
+              value: 'new_task',
+              child: Row(
+                children: [
+                  Icon(Icons.task_alt_outlined, color: Colors.black54),
+                  SizedBox(width: 10),
+                  Text("New Task"),
+                ],
+              ),
+            ),
+            const PopupMenuItem(
+              value: 'import_data',
+              child: Row(
+                children: [
+                  Icon(Icons.upload_file, color: Colors.black54),
+                  SizedBox(width: 10),
+                  Text("Import Data"),
+                ],
+              ),
+            ),
+            const PopupMenuItem(
+              value: 'settings',
+              child: Row(
+                children: [
+                  Icon(Icons.settings_outlined, color: Colors.black54),
+                  SizedBox(width: 10),
+                  Text("Settings"),
+                ],
+              ),
+            ),
+          ],
+
+          child: CircleAvatar(
+            backgroundColor: purple,
+            child: const Icon(Icons.add, color: Colors.white),
+          ),
         ),
       ],
     );
@@ -197,26 +285,97 @@ class _DashboardScreenState extends State<DashboardScreen> {
   Widget buildTabs() {
     return Row(
       children: [
-        Container(
-          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
-          decoration: BoxDecoration(
-            color: purple,
-            borderRadius: BorderRadius.circular(20),
-          ),
-          child: Text(
-            "Overview",
-            style: GoogleFonts.poppins(color: Colors.white),
+        GestureDetector(
+          onTap: () => setState(() => selectedTabIndex = 0),
+          child: Container(
+            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
+            decoration: BoxDecoration(
+              color: selectedTabIndex == 0 ? purple : Colors.transparent,
+              borderRadius: BorderRadius.circular(20),
+            ),
+            child: Text(
+              "Overview",
+              style: GoogleFonts.poppins(
+                color: selectedTabIndex == 0 ? Colors.white : Colors.grey,
+                fontWeight: FontWeight.w500,
+              ),
+            ),
           ),
         ),
         const SizedBox(width: 10),
-        Text(
-          "Analytics",
-          style: GoogleFonts.poppins(color: Colors.grey),
+        GestureDetector(
+          onTap: () => setState(() => selectedTabIndex = 1),
+          child: Container(
+            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
+            decoration: BoxDecoration(
+              color: selectedTabIndex == 1 ? purple : Colors.transparent,
+              borderRadius: BorderRadius.circular(20),
+            ),
+            child: Text(
+              "Analytics",
+              style: GoogleFonts.poppins(
+                color: selectedTabIndex == 1 ? Colors.white : Colors.grey,
+                fontWeight: FontWeight.w500,
+              ),
+            ),
+          ),
         ),
       ],
     );
   }
-
+  Widget buildAnalyticsSection() {
+    return Container(
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(16),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text("Project Progress", style: GoogleFonts.poppins(fontWeight: FontWeight.bold)),
+          const SizedBox(height: 20),
+          SizedBox(
+            height: 200,
+            child: BarChart(
+              BarChartData(
+                alignment: BarChartAlignment.spaceAround,
+                maxY: 10,
+                barTouchData: BarTouchData(enabled: true),
+                titlesData: FlTitlesData(
+                  leftTitles: AxisTitles(
+                    sideTitles: SideTitles(showTitles: true, reservedSize: 28),
+                  ),
+                  bottomTitles: AxisTitles(
+                    sideTitles: SideTitles(
+                      showTitles: true,
+                      getTitlesWidget: (value, meta) {
+                        const titles = ["Mon", "Tue", "Wed", "Thu", "Fri"];
+                        return Padding(
+                          padding: const EdgeInsets.only(top: 8.0),
+                          child: Text(titles[value.toInt() % titles.length],
+                              style: GoogleFonts.poppins(fontSize: 12)),
+                        );
+                      },
+                      reservedSize: 28,
+                    ),
+                  ),
+                ),
+                borderData: FlBorderData(show: false),
+                barGroups: [
+                  BarChartGroupData(x: 0, barRods: [BarChartRodData(toY: 5, color: purple)]),
+                  BarChartGroupData(x: 1, barRods: [BarChartRodData(toY: 7, color: purple)]),
+                  BarChartGroupData(x: 2, barRods: [BarChartRodData(toY: 6, color: purple)]),
+                  BarChartGroupData(x: 3, barRods: [BarChartRodData(toY: 8, color: purple)]),
+                  BarChartGroupData(x: 4, barRods: [BarChartRodData(toY: 4, color: purple)]),
+                ],
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
   Widget buildBottomNavBar() {
     return   BottomNavigationBar(
     backgroundColor: Colors.white,

@@ -139,32 +139,31 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                             TextStyle(fontSize: (width <= 550) ? 13 : 17, color: Colors.white),
                           ),
                         ),
-                        Center(
-                          child: Row(
-                            children: [
-                              Text("Already have an Account?",
-                              style: TextStyle(color: Colors.grey, fontSize: (width <= 550) ? 18 : 25),),
-                              TextButton(
-                                onPressed: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(builder: (context) => LoginScreen()), // Navigate to LoginScreen
-                                  );
-                                },
-                                child: const Text(
-                                  "Sign In",
-                                  style: TextStyle(color: Colors.orange),
-                                ),
-                                style: TextButton.styleFrom(
-                                  elevation: 0,
-                                  textStyle: TextStyle(
-                                    fontWeight: FontWeight.w800,
-                                    fontSize: (width <= 550) ? 18 : 25,
-                                  ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text("Already have an Account?",
+                            style: TextStyle(color: Colors.grey, fontSize: (width <= 550) ? 18 : 25),),
+                            TextButton(
+                              onPressed: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(builder: (context) => LoginScreen()), // Navigate to LoginScreen
+                                );
+                              },
+                              child: const Text(
+                                "Sign In",
+                                style: TextStyle(color: Colors.orange),
+                              ),
+                              style: TextButton.styleFrom(
+                                elevation: 0,
+                                textStyle: TextStyle(
+                                  fontWeight: FontWeight.w800,
+                                  fontSize: (width <= 550) ? 18 : 25,
                                 ),
                               ),
-                            ],
-                          ),
+                            ),
+                          ],
                         )
                       ],
                     ),
