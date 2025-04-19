@@ -1,5 +1,7 @@
 import 'dart:async';
 
+import 'package:carousel_slider/carousel_slider.dart';
+import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -63,7 +65,7 @@ class _SplashScreenState extends State<SplashScreen>
 
     Timer(const Duration(seconds: 8), () {
       Navigator.of(context).pushReplacement(
-        MaterialPageRoute(builder: (context) => const MainScreen()),
+        MaterialPageRoute(builder: (context) => const InitialScreen()),
       );
     });
   }
@@ -105,8 +107,74 @@ class InitialScreen extends StatefulWidget {
 }
 
 class _InitialScreenState extends State<InitialScreen> {
+
+  final items = [
+    Image.asset('assets/s2.PNG',
+    width:300,),
+    Image.asset('assets/s1.PNG')
+  ];
+  int currentIndex = 0;
   @override
   Widget build(BuildContext context) {
-    return const Scaffold();
+    double screenWidth = MediaQuery.of(context).size.width;
+    return Scaffold(
+      backgroundColor: Colors.white,
+      body: Column(
+        children: [
+          CarouselSlider(
+            options: CarouselOptions(
+              autoPlay: true,
+              aspectRatio: 0.6,
+              enlargeCenterPage: true,
+              onPageChanged: (index, reason) {
+                setState(() {
+                  currentIndex = index;
+                });
+              },
+            ),
+            items: items,
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+          SizedBox(
+            width: 120,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.deepPurpleAccent,
+                      padding: const EdgeInsets.symmetric(vertical: 14),
+                      shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(50),
+                    ),
+                    ),
+                    onPressed: (){},
+                    child: Icon(Icons.login_rounded, color: Colors.white),
+                           ),
+                Text(
+                  "Skip",
+                  style: TextStyle(
+                    fontSize: 18,
+                    color: Colors.deepPurpleAccent,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+
+              ],
+            ),
+          ),
+              DotsIndicator(
+                dotsCount: items.length,
+                position: currentIndex.toDouble(),
+              ),
+
+            ],
+          ),
+
+        ],
+      ),
+    );
   }
 }
