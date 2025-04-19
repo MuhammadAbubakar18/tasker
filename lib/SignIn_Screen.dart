@@ -87,7 +87,9 @@ class _SignupScreenState extends State<SignupScreen> {
               child: Column(
                 children: [
                   const Spacer(flex: 1),
-                  Image.asset('assets/s4.PNG'),
+                  Image(image: AssetImage("assets/s4.png"),
+                    
+                  ),
                   // Text(
                   //   "Sign Up",
                   //   style: GoogleFonts.alumniSans(
