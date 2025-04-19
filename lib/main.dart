@@ -147,7 +147,7 @@ class _InitialScreenState extends State<InitialScreen> {
                     backgroundColor: Colors.deepPurpleAccent,
                       padding: const EdgeInsets.symmetric(vertical: 14),
                       shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(50),
+                      borderRadius: BorderRadius.circular(49),
                     ),
                     ),
                     onPressed: (){
