@@ -18,9 +18,7 @@ class PinCodeVerificationScreen extends StatefulWidget {
 
 class _PinCodeVerificationScreenState extends State<PinCodeVerificationScreen> {
   TextEditingController textEditingController = TextEditingController();
-  // ..text = "123456";
 
-  // ignore: close_sinks
   StreamController<ErrorAnimationType>? errorController;
 
   bool hasError = false;
@@ -167,8 +165,7 @@ class _PinCodeVerificationScreenState extends State<PinCodeVerificationScreen> {
                     },
                     beforeTextPaste: (text) {
                       debugPrint("Allowing to paste $text");
-                      //if you return true then it will show the paste confirmation dialog. Otherwise if false, then nothing will happen.
-                      //but you can show anything you want here, like your pop up saying wrong paste format or etc
+
                       return true;
                     },
                   ),

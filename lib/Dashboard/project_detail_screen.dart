@@ -31,14 +31,14 @@ class _ProjectDetailScreenState extends State<ProjectDetailScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Title
+
             Text(
               project['title'] ?? '',
               style: GoogleFonts.poppins(fontSize: 24, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 10),
 
-            // Date Range
+
             Row(
               children: [
                 const Icon(Icons.calendar_month_outlined, size: 16, color: Colors.grey),
@@ -51,7 +51,7 @@ class _ProjectDetailScreenState extends State<ProjectDetailScreen> {
             ),
             const SizedBox(height: 20),
 
-            // Description
+
             Text("Description", style: GoogleFonts.poppins(fontSize: 16, fontWeight: FontWeight.w500)),
             const SizedBox(height: 8),
             Text(
@@ -60,7 +60,7 @@ class _ProjectDetailScreenState extends State<ProjectDetailScreen> {
             ),
             const SizedBox(height: 20),
 
-            // Progress Bar
+
             Text("Progress", style: GoogleFonts.poppins(fontSize: 16, fontWeight: FontWeight.w500)),
             const SizedBox(height: 10),
             LinearProgressIndicator(
@@ -75,7 +75,7 @@ class _ProjectDetailScreenState extends State<ProjectDetailScreen> {
 
             const SizedBox(height: 30),
 
-            // Status
+
             Row(
               children: [
                 const Icon(Icons.info_outline, color: Colors.grey),

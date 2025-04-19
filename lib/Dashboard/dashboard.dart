@@ -71,7 +71,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                 ),
                 buildTaskSection(),
               ] else ...[
-                buildAnalyticsSection(), // 👇 new function
+                buildAnalyticsSection(),
               ],
 
             ],
@@ -189,7 +189,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
         ),
         PopupMenuButton<String>(
           onSelected: (value) {
-            // Handle your actions here
+
             if (value == 'new_project') {
               Navigator.push(
                   context,
@@ -198,11 +198,11 @@ class _DashboardScreenState extends State<DashboardScreen> {
               );
 
             } else if (value == 'new_task') {
-              // Navigate to create task
+
             } else if (value == 'import_data') {
-              // Open import dialog
+
             } else if (value == 'settings') {
-              // Navigate to settings
+
             }
           },
           itemBuilder: (context) => [
