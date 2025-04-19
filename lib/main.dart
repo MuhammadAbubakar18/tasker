@@ -111,7 +111,7 @@ class _InitialScreenState extends State<InitialScreen> {
   final items = [
     Image.asset('assets/s2.PNG',
     width:300,),
-    Image.asset('assets/s1.PNG')
+    Image.asset('assets/s1.PNG'),
   ];
   int currentIndex = 0;
   @override
@@ -123,7 +123,7 @@ class _InitialScreenState extends State<InitialScreen> {
         children: [
           CarouselSlider(
             options: CarouselOptions(
-              autoPlay: true,
+              autoPlay: false,
               aspectRatio: 0.6,
               enlargeCenterPage: true,
               onPageChanged: (index, reason) {
@@ -150,7 +150,12 @@ class _InitialScreenState extends State<InitialScreen> {
                       borderRadius: BorderRadius.circular(50),
                     ),
                     ),
-                    onPressed: (){},
+                    onPressed: (){
+                      Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => StartScreen()), // Navigate to LoginScreen
+                          );
+                    },
                     child: Icon(Icons.login_rounded, color: Colors.white),
                            ),
                 Text(
@@ -178,3 +183,73 @@ class _InitialScreenState extends State<InitialScreen> {
     );
   }
 }
+class StartScreen extends StatelessWidget {
+  const StartScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Colors.white,
+      body: Column(
+        children: [
+          Image(
+            image: AssetImage('assets/s3.PNG'), // Use AssetImage for local images
+          ),
+          SizedBox(height: 20,),
+          Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.deepPurpleAccent,
+                padding: const EdgeInsets.symmetric(vertical: 14),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(30),
+                ),
+                minimumSize: const Size(double.infinity, 50),
+              ),
+              onPressed: () {
+                // Navigator.push(
+                //   context,
+                //   MaterialPageRoute(builder: (context) => LoginScreen()), // Navigate to LoginScreen
+                // );
+              },
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: const [
+                  Icon(Icons.login, color: Colors.white),
+                  SizedBox(width: 10),
+                  Text(
+                    "Get Started",
+                    style: TextStyle(
+                      fontSize: 18,
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+          SizedBox(height: 15,),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: const [
+              Icon(Icons.person_add, color: Colors.white),
+              SizedBox(width: 10),
+              Text(
+                "New User? SignUp",
+                style: TextStyle(
+                  fontSize: 18,
+                  color: Colors.black,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ],
+          ),
+
+        ],
+      ),
+    );
+  }
+}
+
