@@ -5,6 +5,7 @@ import 'package:dots_indicator/dots_indicator.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:tasker_by_team_dsa/Dashboard/dashboard.dart';
 import 'package:tasker_by_team_dsa/Login_screen.dart';
 import 'package:tasker_by_team_dsa/OTP_screen.dart';
 import 'package:tasker_by_team_dsa/SignIn_Screen.dart';
@@ -29,27 +30,15 @@ class MyApp extends StatelessWidget {
         routes: {
         '/splash':(context)=>SplashScreen(),
         '/otp':(context)=>PinCodeVerificationScreen(),
-        '/main': (context) => const MainScreen(),
+        '/dash': (context) =>  DashboardScreen(),
         },
         title: 'Persistent Bottom Nav Bar',
         theme: ThemeData(primarySwatch: Colors.teal),
-    home: const MainScreen(),
+    home:  DashboardScreen(),
     );
   }
 }
-class MainScreen extends StatefulWidget {
-  const MainScreen({super.key});
 
-  @override
-  State<MainScreen> createState() => _MainScreenState();
-}
-
-class _MainScreenState extends State<MainScreen> {
-  @override
-  Widget build(BuildContext context) {
-    return const Placeholder();
-  }
-}
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
 

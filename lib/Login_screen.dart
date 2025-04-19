@@ -4,6 +4,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:tasker_by_team_dsa/main.dart';
 
+import 'Dashboard/ChoosePlan.dart';
+
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
   @override
@@ -34,7 +36,7 @@ class _LoginScreenState extends State<LoginScreen> {
       );
       Navigator.push(
         context,
-        MaterialPageRoute(builder: (context) => MainScreen()), // Navigate to LoginScreen
+        MaterialPageRoute(builder: (context) => ChoosePlan()), // Navigate to LoginScreen
       );
     } on FirebaseAuthException catch (e) {
       print("FirebaseAuthException: ${e.code} - ${e.message}"); // Print error to console
