@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "632537094584",
+    "project_id": "tasker-by-team-dsa",
+    "storage_bucket": "tasker-by-team-dsa.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:632537094584:android:28265d5b66e94ed48f174d",
+        "android_client_info": {
+          "package_name": "com.example.tasker_by_team_dsa"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAcGJPNECx1_PCKAC2-91UJDIWBR26SNsU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
